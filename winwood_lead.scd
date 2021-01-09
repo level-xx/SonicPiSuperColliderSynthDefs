@@ -9,10 +9,12 @@ SynthDef('sonic-pi-winwood_lead', {|
 	note = 69, note_slide = 0, note_slide_shape = 1, note_slide_curve = 0,
 	amp = 1, amp_slide = 0, amp_slide_shape = 1, amp_slide_curve = 0,
 	pan = 0, pan_slide = 0, pan_slide_shape = 1, pan_slide_curve = 0,
-	attack = 0.01, decay = 0, sustain = 1, release = 1,
-	attack_level = 1, decay_level = 0.5, sustain_level = 0,
+	attack = 0.01, decay = 0, sustain = 0.9, release = 0.05,
+	attack_level = 1, decay_level = 0.5, sustain_level = 0.5,
 	cutoff = 119, cutoff_slide = 0, cutoff_slide_shape = 1, cutoff_slide_curve = 1,
-	rq = 0.8, lfowidth = 0.01, lforate = 8, lagamount = 0.01,
+	lfo_width = 0.01, lfo_width_slide = 0, lfo_width_slide_shape = 1, lfo_width_slide_curve = 1,
+	lfo_rate = 8, lfo_rate_slide = 0, lfo_rate_slide_shape = 1, lfo_rate_slide_curve = 1,
+	res = 0.8,
 	seed = 0, rand_buf = 0,
 	out_bus = 0|
 
@@ -28,15 +30,17 @@ SynthDef('sonic-pi-winwood_lead', {|
 	cutoff = cutoff.midicps;
 	cutoff = cutoff.varlag(cutoff_slide, cutoff_slide_curve, cutoff_slide_shape);
 
+	lfo_width = lfo_width.varlag(lfo_width_slide, lfo_width_slide_curve, lfo_width_slide_shape);
+	lfo_rate = lfo_rate.varlag(lfo_rate_slide, lfo_rate_slide_curve, lfo_rate_slide_shape);
+
 	rand_val = BufRd.kr(1, rand_buf, seed, 1);
 
-	lfo = LFTri.kr(lforate,(rand_val*2.0)!2);
+	lfo = LFTri.kr(lfo_rate,(rand_val*2.0)!2);
 
-	pulse = Mix(Pulse.ar((note.lag(lagamount))*[1,1.001]*(1.0+(lfowidth*lfo)),[0.2,0.19]))*0.5;
+	pulse = Mix(Pulse.ar(note*[1,1.001]*(1.0+(lfo_width*lfo)),[0.2,0.19]))*0.5;
 
-	snd =  RLPF.ar(pulse,cutoff,rq);
+	snd =  RLPF.ar(pulse,cutoff,res);
 
-	// Remove low end
 	snd = BLowShelf.ar(snd,351,1.0,-9);
 
 	env = Env.new(
@@ -45,7 +49,7 @@ SynthDef('sonic-pi-winwood_lead', {|
 		\lin
 	);
 
-	snd = Pan2.ar(Mix(snd) * 2 * EnvGen.kr(env, doneAction: 2), pan);
+	snd = Pan2.ar(Mix(snd) * EnvGen.kr(env, doneAction: 2), pan);
 
 	Out.ar(out_bus, snd * amp);
 }).writeDefFile("/home/bmarx/music/sonic_pi/synthdefs/compiled/");
