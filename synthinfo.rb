@@ -3308,12 +3308,12 @@ Steal This Sound,  Mitchell Sigman"
       end
 
       def doc
-        "TBD, taken from ..."
+        "A lead synth inspired by the Winwood songs from the early 80s.  Adapted for Sonic Pi from [Steal This Sound](https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd). Published there under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html), so re-published under the same terms. Date of modification: 10.01.2021"
       end
 
       def arg_defaults
         {
-          :note => 52,
+          :note => 69,
           :note_slide => 0,
           :note_slide_shape => 1,
           :note_slide_curve => 0,
@@ -3332,12 +3332,21 @@ Steal This Sound,  Mitchell Sigman"
           :release => 0.05,
           :attack_level => 1,
           :decay_level => 0.5,
-          :sustain_level => 0,
+          :sustain_level => 0.5,
 
           :cutoff => 119,
           :res => 0.8,
+          :res_slide => 0,
+          :res_slide_shape => 1,
+          :res_slide_curve => 0,
           :lfo_width => 0.01,
+          :lfo_width_slide => 0,
+          :lfo_width_slide_shape => 1,
+          :lfo_width_slide_curve => 0,
           :lfo_rate => 8,
+          :lfo_rate_slide => 0,
+          :lfo_rate_slide_shape => 1,
+          :lfo_rate_slide_curve => 0,
           :seed => 0,
         }
       end
@@ -3377,12 +3386,12 @@ Steal This Sound,  Mitchell Sigman"
       end
 
       def doc
-        "TBD"
+        "A soft bass synth inspired by the sounds of the 80s. Use together with :bass_highend if you want to give it a gargling component. Adapted for Sonic Pi from [Steal This Sound](https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd). Published there under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html), so re-published under the same terms. Date of modification: 10.01.2021"
       end
 
       def arg_defaults
         {
-          :note => 52,
+          :note => 40,
           :note_slide => 0,
           :note_slide_shape => 1,
           :note_slide_curve => 0,
@@ -3403,23 +3412,11 @@ Steal This Sound,  Mitchell Sigman"
           :decay_level => 0.5,
           :sustain_level => 0,
 
-          :cutoff => 8000,
-          :rq => 0.8,
-          :lfowidth => 0.01,
-          :lforate => 8,
-          :lagamount => 0.01,
-          :gate => 1,
-        }
-      end
-
-      def specific_arg_info
-        {
-          :gate =>
-          {
-            :doc => "TBD",
-            :validations => [v_one_of(:gate, [0, 1])],
-            :modulatable => true
-            },
+          :cutoff => 83,
+          :res => 0.5,
+          :res_slide => 0,
+          :res_slide_shape => 1,
+          :res_slide_curve => 0,
         }
       end
     end

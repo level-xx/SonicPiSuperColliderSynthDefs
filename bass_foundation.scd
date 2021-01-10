@@ -2,16 +2,17 @@
 //   https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd
 // Published there under GPL v3, so re-published under the same terms, see:
 //   https://www.gnu.org/licenses/gpl-3.0.en.html
-// Date of modification: 05.01.2021
+// Date of modification: 10.01.2021
 
+(
 SynthDef('sonic-pi-bass_foundation', {|
 	note = 40, note_slide = 0, note_slide_shape = 1, note_slide_curve = 0,
-	amp = 0.2, amp_slide = 0, amp_slide_shape = 1, amp_slide_curve = 0,
+	amp = 1, amp_slide = 0, amp_slide_shape = 1, amp_slide_curve = 0,
 	pan = 0, pan_slide = 0, pan_slide_shape = 1, pan_slide_curve = 0,
 	attack = 0.01, decay = 0, sustain = 0.9, release = 0.05,
 	attack_level = 1, decay_level = 0.5, sustain_level = 0,
-	cutoff = 83, cutoff_slide = 0, cutoff_slide_shape = 1, cutoff_slide_curve = 1,
-	rq = 0.5,
+	cutoff = 83, cutoff_slide = 0, cutoff_slide_shape = 1, cutoff_slide_curve = 0,
+	res = 0.5, res_slide = 0, res_slide_shape = 1, res_slide_curve = 0,
 	out_bus = 0|
 
 	var snd, osc, env, filterenv;
@@ -25,10 +26,12 @@ SynthDef('sonic-pi-bass_foundation', {|
 	cutoff = cutoff.midicps;
     cutoff = cutoff.varlag(cutoff_slide, cutoff_slide_curve, cutoff_slide_shape);
 
+	res = res.varlag(res_slide, res_slide_curve, res_slide_shape);
+
 	osc = Saw.ar(note);
 
 	filterenv = EnvGen.ar(Env.adsr(0.0, 0.5, 0.2, 0.2), 1, doneAction:2);
-	snd =  RLPF.ar(osc,cutoff*filterenv+100, rq);
+	snd =  RLPF.ar(osc,cutoff*filterenv+100, res);
 
 	env = Env.new(
 		[0, attack_level, decay_level, sustain_level, 0],
@@ -40,3 +43,4 @@ SynthDef('sonic-pi-bass_foundation', {|
 
 	Out.ar(out_bus, snd * amp);
 }).writeDefFile("/home/bmarx/music/sonic_pi/synthdefs/compiled/");
+)
