@@ -3308,7 +3308,7 @@ Steal This Sound,  Mitchell Sigman"
       end
 
       def doc
-        "A lead synth inspired by the Winwood songs from the early 80s.  Adapted for Sonic Pi from [Steal This Sound](https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd). Published there under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html), so re-published under the same terms. Date of modification: 10.01.2021"
+        "A lead synth inspired by the Winwood songs from the early 80s.  Adapted for Sonic Pi from [Steal This Sound](https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd). Published there under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html), so re-published under the same terms. The source code is available [on the Sonic Pi GitHub repository](https://github.com/sonic-pi-net/sonic-pi). Date of modification: 10.01.2021"
       end
 
       def arg_defaults
@@ -3335,6 +3335,10 @@ Steal This Sound,  Mitchell Sigman"
           :sustain_level => 0.5,
 
           :cutoff => 119,
+          :cutoff_slide => 0,
+          :cutoff_slide_shape => 1,
+          :cutoff_slide_curve => 0,
+
           :res => 0.8,
           :res_slide => 0,
           :res_slide_shape => 1,
@@ -3386,7 +3390,7 @@ Steal This Sound,  Mitchell Sigman"
       end
 
       def doc
-        "A soft bass synth inspired by the sounds of the 80s. Use together with :bass_highend if you want to give it a gargling component. Adapted for Sonic Pi from [Steal This Sound](https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd). Published there under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html), so re-published under the same terms. Date of modification: 10.01.2021"
+        "A soft bass synth inspired by the sounds of the 80s. Use together with :bass_highend if you want to give it a gargling component. Adapted for Sonic Pi from [Steal This Sound](https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd). Published there under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html), so re-published under the same terms. The source code is available [on the Sonic Pi GitHub repository](https://github.com/sonic-pi-net/sonic-pi). Date of modification: 10.01.2021"
       end
 
       def arg_defaults
@@ -3413,6 +3417,10 @@ Steal This Sound,  Mitchell Sigman"
           :sustain_level => 0,
 
           :cutoff => 83,
+          :cutoff_slide => 0,
+          :cutoff_slide_shape => 1,
+          :cutoff_slide_curve => 0,
+
           :res => 0.5,
           :res_slide => 0,
           :res_slide_shape => 1,
@@ -3435,12 +3443,12 @@ Steal This Sound,  Mitchell Sigman"
       end
 
       def doc
-        "TBD"
+        "An addition to the :bass_foundation synth inspired by the sounds of the 80s. Use them together if you want to give it a rough, slurping, or gargling component. Adapted for Sonic Pi from [Steal This Sound](https://raw.githubusercontent.com/supercollider/supercollider/develop/examples/demonstrations/stealthissound.scd). Published there under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html), so re-published under the same terms. The source code is available [on the Sonic Pi GitHub repository](https://github.com/sonic-pi-net/sonic-pi). Date of modification: 11.01.2021"
       end
 
       def arg_defaults
         {
-          :note => 52,
+          :note => 40,
           :note_slide => 0,
           :note_slide_shape => 1,
           :note_slide_curve => 0,
@@ -3461,27 +3469,28 @@ Steal This Sound,  Mitchell Sigman"
           :decay_level => 0.5,
           :sustain_level => 0,
 
-          :cutoff => 8000,
-          :rq => 0.8,
-          :lfowidth => 0.01,
-          :lforate => 8,
-          :lagamount => 0.01,
-          :gate => 1,
+          :cutoff => 102,
+          :cutoff_slide => 0,
+          :cutoff_slide_shape => 1,
+          :cutoff_slide_curve => 0,
+
+          :res => 0.1,
+          :res_slide => 0,
+          :res_slide_shape => 1,
+          :res_slide_curve => 0,
+
           :drive => 2.0,
+          :drive_slide => 0,
+          :drive_slide_shape => 1,
+          :drive_slide_curve => 0,
         }
       end
 
       def specific_arg_info
         {
-          :gate =>
-          {
-            :doc => "TBD",
-            :validations => [v_one_of(:gate, [0, 1])],
-            :modulatable => false
-            },
           :drive =>
           {
-            :doc => "TBD",
+            :doc => "Higher drive values make the sound louder and rougher.",
             :validations => [v_positive(:drive)],
             :modulatable => true
             },
